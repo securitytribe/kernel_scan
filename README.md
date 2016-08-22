@@ -28,6 +28,11 @@ $ make KERNELVER=3.9.6
 
 Replacing `3.9.6` with your desired kernel version.
 
+In addition, if you have done a raw checkout/untar of sources from 
+[Kernel.org](https://kernel.org) there may be additional steps that you have to
+take.  Some old kernels will be missing files, but can be solved very easily.
+Refer to [Various Errors/Errata] for more information.
+
 ## Modules
 
 ### i2cscan
@@ -41,3 +46,48 @@ designed to scan the I²C bus and enumerate devices.
 pciscan is a Linux kernel module originally appearing on the blog 
 [godandme](https://godandme.wordpress.com/2013/01/30/pci-scan-code-for-linux-kernel/)
 designed to scan the PCI bus and enumerate devices.
+
+## Various Errors/Errata:
+
+### GCC
+```
+include/linux/compiler-gcc.h:103:30: fatal error: linux/compiler-gcc5.h: No such file or directory
+compilation terminated.
+```
+
+It means that the kernel did not ship with headers knowledgeable about the
+various capabilities of GCC Version 5.   In this case, GCC can operate in a
+backwards compatible manner, but we will need to redirect these calls.  In the
+source kernel source tree run:
+
+```
+echo "#include <linux/compiler-gcc4.h>" > include/linux/compiler-gcc5.h
+```
+
+### Missing config / prepare 
+
+```  ERROR: Kernel configuration is invalid.
+         include/generated/autoconf.h or include/config/auto.conf are missing.
+         Run 'make oldconfig && make prepare' on kernel src to fix it.
+```
+
+You'll need to put in a sample config (if you don't have a default kernel config)
+and prep the tree to be built.  In the kernel source tree run:
+
+```
+make oldconfig && make prepare
+```
+
+### Missing files in `/scripts` 
+
+```
+/bin/sh: /home/user/Projects/linux-3.9.6/scripts/recordmcount: No such file or directory
+```
+
+The kernel includes many helper scripts to identify the location of
+system/toolchain components.  These need to be generated via the `Makefile`.
+In the kernel source tree run:
+
+```
+make scripts
+```
