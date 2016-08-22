@@ -66,7 +66,8 @@ echo "#include <linux/compiler-gcc4.h>" > include/linux/compiler-gcc5.h
 
 ### Missing config / prepare 
 
-```  ERROR: Kernel configuration is invalid.
+```
+     ERROR: Kernel configuration is invalid.
          include/generated/autoconf.h or include/config/auto.conf are missing.
          Run 'make oldconfig && make prepare' on kernel src to fix it.
 ```
