@@ -18,15 +18,27 @@ $ make
 
 This will output the files `i2cscan.ko` and `pciscan.ko`, which can be loaded.
 
-In the event that you do not wish to run them against your running kernel,
-extract the desired kernel version to the path `/some/path/here` and then run the
-command:
+In the event that you do not wish to run them against your running kernel, but
+another set of sources within the path `/lib/modules/$(KERNELVER)/build`
+you may run:
 
 ```
 $ make KERNELVER=3.9.6
 ```
 
 Replacing `3.9.6` with your desired kernel version.
+
+Finally, if you wish to specify an arbitrary path (as the author of this
+README.md does) extract the desired kernel version to the path `/some/path/here`
+and then run the command:
+
+```
+$ make KERNELHEADERS=/some/path/here
+```
+
+This is especially useful when you are trying to compile these modules for a
+remote device and you are only able to identify the running version with
+`uname -r`.
 
 In addition, if you have done a raw checkout/untar of sources from 
 [Kernel.org](https://kernel.org) there may be additional steps that you have to
