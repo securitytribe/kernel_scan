@@ -1,0 +1,10 @@
+i2cscan.o
+pciscan.o
+modules.order
+pciscan.mod.c
+Module.symvers
+i2cscan.mod.c
+i2cscan.mod.o
+i2cscan.ko
+pciscan.mod.o
+pciscan.ko
