@@ -1,3 +1,4 @@
+.*
 i2cscan.o
 pciscan.o
 modules.order
